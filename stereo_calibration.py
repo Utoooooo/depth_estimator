@@ -11,7 +11,7 @@ def create_output_dirs(left_dir="left", right_dir="right"):
     return left_dir, right_dir
 
 
-def capture_stereo_images(num_images=10, interval=5, camera_index=1, frame_width=1600, frame_height=600):
+def capture_stereo_images(num_images=10, interval=5, camera_index=0, frame_width=1600, frame_height=600):
     cap = cv2.VideoCapture(camera_index)
     if not cap.isOpened():
         raise RuntimeError("Camera not found!")
@@ -49,8 +49,8 @@ def capture_stereo_images(num_images=10, interval=5, camera_index=1, frame_width
             print("Failed to capture image.")
             continue
 
-        left_img = frame[:, :half_width]
-        right_img = frame[:, half_width:]
+        right_img = frame[:, :half_width]
+        left_img = frame[:, half_width:]
 
         timestamp = datetime.now().strftime("%Y%m%d_%H%M%S")
         left_path = os.path.join(left_dir, f"left_{timestamp}.png")
